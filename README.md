@@ -1,0 +1,2 @@
+# XHSegmentHeaderClassVC
+仿写简书个人中心界面，增加支付宝首页下拉刷新，同时增加下拉头部放大效果
