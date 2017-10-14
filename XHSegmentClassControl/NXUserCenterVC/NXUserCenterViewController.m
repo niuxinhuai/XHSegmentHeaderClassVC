@@ -87,10 +87,12 @@ static NSString *const cellID = @"cellIdentifier";
         _mainTableView.showsHorizontalScrollIndicator = NO;
         _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _mainTableView.showsVerticalScrollIndicator = NO;
-       // _mainTableView.tableHeaderView= self.headerView;
+        //table 预留出需要做放大效果视图的高度
         _mainTableView.contentInset = UIEdgeInsetsMake(200, 0, 0, 0);
+        // 需要注意的是 创建的头部视图的坐标，这里以200为高度举例。
         UIImageView * imageV = [[UIImageView alloc]initWithFrame:CGRectMake(0, -200, SCREEN_WIDTH, 200)];
         imageV.image = [UIImage imageNamed:@"m8.jpg"];
+        //为了达到我们等比例的放大效果，使用系统的方法UIViewContentModeScaleAspectFill 即可
         imageV.contentMode = UIViewContentModeScaleAspectFill;
         imageV.tag = 10000;
         imageV.backgroundColor = [UIColor redColor];
@@ -147,7 +149,8 @@ static NSString *const cellID = @"cellIdentifier";
         CGFloat tempContentOffsetY = scrollView.contentOffset.y;
 
         CGFloat tabOffsetY =  -64;
-        if (tempContentOffsetY<0) {// 偏移量小于0主视图不做偏移量变化，交给子视图进行处理
+        
+        if (tempContentOffsetY<-264) {// 保证第一次进入以及后续的下拉刷新，同时保证当主视图偏移量不小于-264的时候不允许出现下拉加载
             [[NSNotificationCenter defaultCenter] postNotificationName:@"showRefresh" object:nil];
             if (tempContentOffsetY < -264) {
                 CGRect rect = [self.mainTableView viewWithTag:10000].frame;

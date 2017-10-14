@@ -72,7 +72,6 @@
         return;
     }
     CGFloat offsetY = scrollView.contentOffset.y;
-    
     if (offsetY<=0) {
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"leaveTop" object:nil userInfo:@{@"canScroll":@"1"}];
